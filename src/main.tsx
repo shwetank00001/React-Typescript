@@ -1,9 +1,13 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import Reducer from './components/reducer/Reducer'
+import { BrowserRouter } from 'react-router'
+import HomePage from './components/context/HomePage'
+import './index.css'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <Reducer />
+    <BrowserRouter>
+      <HomePage />
+    </BrowserRouter>
   </StrictMode>,
 )
