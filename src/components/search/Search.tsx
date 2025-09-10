@@ -1,9 +1,9 @@
-import React, { useEffect, useState, type BaseSyntheticEvent } from 'react'
+import  { useEffect, useState, type SyntheticEvent } from 'react'
 
 const Search = () => {
 
     const [valueSearch, setVal] = useState('')
-    const url = "https://dummyjson.com/carts";
+    const url = "https://jsonplaceholder.typicode.com/todos";
 
     const [fetchedData, setFetchedData] = useState([]);
 
@@ -12,7 +12,7 @@ const Search = () => {
             try {
                 const data = await fetch(url);
                 const resp = await data.json();
-                setFetchedData(resp.carts);
+                setFetchedData(resp);
                 console.log("fetchedData", fetchedData)
             } catch (error) {
                 console.log("Error is", error)
@@ -37,7 +37,7 @@ const Search = () => {
 
 
 
-    function handleSubmit(e:BaseSyntheticEvent){
+    function handleSubmit(e:SyntheticEvent){
         e.preventDefault();
         const searchedData = fetchedData.filter((item) => {
             return item.title.toLowerCase().includes((valueSearch));
@@ -46,11 +46,23 @@ const Search = () => {
     }
 
 
+    async function reset(){
+        try {
+            const data = await fetch(url);
+            const resp = await data.json();
+            setFetchedData(resp);
+            console.log("fetchedData", fetchedData)
+        } catch (error) {
+                console.log("Error is", error)
+        }
+    }
+
   return (
     <div>
         <form onSubmit={handleSubmit}>
             <input placeholder='Search for item...' value={valueSearch} onChange={e => setVal(e.target.value)}/>
             <button type='submit'>Search</button>
+            <button onClick={reset}>reset</button>
         </form>
 
         <div>
