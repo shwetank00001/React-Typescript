@@ -6,8 +6,6 @@ const FormData = () => {
 
     const url = "https://68c8eadbceef5a150f62ae67.mockapi.io/api/userform/userdata";
     const [fetchedData, setFetchedData] = useState([]);
-
-
     const [fName, setFname] = useState('');
     const [lName, setLname] = useState('');
 
@@ -29,25 +27,26 @@ const FormData = () => {
 
     async function handleSubmit(e:React.FormEvent){
         e.preventDefault();
-
-        const newUser = {
-            fName : fName,
-            lName: lName
+        const newUser = {fName, lName};
+        try {
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(newUser)
+            }).then(() => {
+                setFetchedData(function(item){
+                    return [...item, newUser]
+                })
+                console.log("ADDED")
+            }).catch((err) => {console.log("Error", err)})
         }
-        
-        const res = await fetch(url, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(newUser)
-        })
 
-        const data = await res.json();
+        catch (error) {   
+            console.log("Error is:", error)
+        }
 
-        setFetchedData(function(item){
-            return [...item, data]
-        })
     }
 
 
