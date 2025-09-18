@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-
+import './form.css'
 
 
 const FormData = () => {
@@ -52,7 +52,7 @@ const FormData = () => {
 
     const ele = fetchedData.map((item:any) => {
         return (
-            <div>
+            <div  >
                 <h1>{item.fName}</h1>
                 <h3>{item.lName}</h3>
                 <p>{item.gender}</p>
@@ -81,7 +81,7 @@ const FormData = () => {
             <button type="submit">Submit</button>
         </form>
         
-        <div>
+        <div className="main">
             {ele}
         </div>
     </div>
